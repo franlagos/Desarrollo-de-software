@@ -2,6 +2,7 @@ import express from 'express';
 import {Character} from './character.js';
 
 const app = express();
+app.use(express.json());
 
 const characters = [
   new Character(
@@ -17,7 +18,7 @@ const characters = [
 ]
 
 app.get('/api/characters/', (req, res) => {
-    res.json(characters);
+    res.json({data:characters});
 })
 
 
@@ -26,7 +27,17 @@ app.get('/api/characters/:id', (req, res) => {
     if (!character) {
         res.status(404).send({ message: 'Character not found' });
     }
-    res.json(character);
+    res.json({data:characters});
+})
+
+
+app.post('/api/characters/', (req, res) => {
+    const { name, characterClass, items, attack, mana, hp, level } = req.body;
+   
+    const character = new Character(name, characterClass, level, hp, attack, mana, items);
+    
+    characters.push(character);
+    res.status(201).send({ message: 'Character created', data: character });
 })
 
 
