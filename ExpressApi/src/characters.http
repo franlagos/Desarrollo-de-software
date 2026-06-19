@@ -17,3 +17,17 @@ Content-Type: application/json
       "hp": 10,
       "level": 1
 }
+
+### Modificar un character (PUT--recurso completo e idempotente)
+PUT http://localhost:3000/api/characters/a02b91bc-3769-4221-beb1-d7a3aeba7dad
+Content-Type: application/json
+
+{
+    "name": "Anakin Skywalker",
+    "characterClass": "Fallen Jedi",
+    "items": ["Lightsaber", "Death Star"],
+    "attack": 110,
+    "mana": 500,
+    "hp": 100,
+    "level": 11  
+}

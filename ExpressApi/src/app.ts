@@ -41,6 +41,25 @@ app.post('/api/characters/', (req, res) => {
 })
 
 
+app.put('/api/characters/:id', (req, res) => {
+    const characterIdx = characters.findIndex((character) => character.id === req.params.id);
+    if (characterIdx === -1) {
+        res.status(404).send({ message: 'Character not found' });
+    }
+    const input = {
+        name: req.body.name,
+        characterClass: req.body.characterClass,
+        items: req.body.items,
+        attack: req.body.attack,
+        mana: req.body.mana,
+        hp: req.body.hp,
+        level: req.body.level
+    }
+    characters[characterIdx]={...characters[characterIdx], ...input};
+    res.status(200).send({ message: 'Character updated', data: characters[characterIdx] });
+})
+
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 })
